@@ -1,0 +1,124 @@
+import java.util.*;
+
+public class IteratorLambda{
+
+//1: Print elements
+public static <T> void printList(List<T> list) {
+        Iterator<T> it = list.iterator();
+        Consumer<T> action = x -> System.out.println(x);
+
+        while(it.hasNext()){
+            action.accept(it.next());
+        }
+    }
+
+//2: Count even numbers
+public static int countEven(List<Integer> list){
+        Iterator<Integer> it = list.iterator();
+        Predicate<Integer> even = x -> x % 2 == 0;
+        int count = 0;
+
+        while(it.hasNext()){
+            if(even.test(it.next())) count++;
+        }
+        return count;
+    }
+
+//3: Remove negative numebrs 
+public static void removeNegative(List<Integer> list){
+        Iterator<Integer> it = list.iterator();
+        Predicate<Integer> negative = x -> x < 0;
+
+        while(it.hasNext()){
+            if(negative.test(it.next())){
+                it.remove();
+            }
+        }
+    }
+
+//4: Find the first string longer than 5
+public static String findLong(List<String> list){
+        Iterator<String> it = list.iterator();
+        Predicate<String> longStr = x -> x.length() > 5;
+
+        while(it.hasNext()){
+            String s = it.next();
+            if(longStr.test(s)) return s;
+        }
+        return null;
+    }
+
+//5: Print uppercase 
+public static void printUpper(List<String> list){
+        Iterator<String> it = list.iterator();
+        Consumer<String> upper = x -> System.out.println(x.toUpperCase());
+
+        while(it.hasNext()){
+            upper.accept(it.next());
+        }
+    }
+
+//6: Square numbers 
+public static List<Integer> squareNumbers(List<Integer> list){
+        Iterator<Integer> it = list.iterator();
+        Function<Integer,Integer> square = x -> x * x;
+        List<Integer> result = new ArrayList<>();
+
+        while(it.hasNext()){
+            result.add(square.apply(it.next()));
+        }
+        return result;
+    }
+
+
+//7: Check if any number >100 
+public static boolean anyGreater100(List<Integer> list){
+        Iterator<Integer> it = list.iterator();
+        Predicate<Integer> big = x -> x > 100;
+
+        while(it.hasNext()){
+            if(big.test(it.next())) return true;
+        }
+        return false;
+    }
+
+
+//8: Sum numbers
+public static int sumNumbers(List<Integer> list){
+        Iterator<Integer> it = list.iterator();
+        BinaryOperator<Integer> add = (a,b) -> a + b;
+        int sum = 0;
+
+        while(it.hasNext()){
+            sum = add.apply(sum, it.next());
+        }
+        return sum;
+    }
+
+//9: Print strings starting with A
+public static void printA(List<String> list){
+        Iterator<String> it = list.iterator();
+        Predicate<String> startsA = x -> x.startsWith("A");
+
+        while(it.hasNext()){
+            String s = it.next();
+            if(startsA.test(s)){
+                System.out.println(s);
+            }
+        }
+    }
+
+//10: Multiply numbers by 2
+public static List<Integer> doubleNumbers(List<Integer> list){
+        Iterator<Integer> it = list.iterator();
+        Function<Integer,Integer> doubler = x -> x * 2;
+        List<Integer> result = new ArrayList<>();
+
+        while(it.hasNext()){
+            result.add(doubler.apply(it.next()));
+        }
+        return result;
+    }
+}
+
+
